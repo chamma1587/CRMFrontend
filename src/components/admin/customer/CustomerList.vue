@@ -7,11 +7,11 @@
             <v-list-item-title class="sub-headline">{{data.first_name}} {{data.last_name}}</v-list-item-title>
             <v-list-item-subtitle>{{data.email}}</v-list-item-subtitle>
           </v-list-item-content>
-          <v-list-item-content v-if="data.phoneNumbers && data.phoneNumbers.data">
+          <v-list-item-content v-if="data.phone_numbers">
             <span
-              v-for="(phone,index) in data.phoneNumbers.data"
+              v-for="(phone,index) in data.phone_numbers"
               :key="index"
-            >{{phone.phone_number}},</span>
+            >{{phone}},</span>
           </v-list-item-content>
           <v-spacer/>
           <v-list-item-action>

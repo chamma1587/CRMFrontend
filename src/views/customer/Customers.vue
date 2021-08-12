@@ -6,7 +6,13 @@
       :serach="search"
       @searchText="searchChange($event)"
     />
+    <v-layout row v-if="errors && !loading">
+        <v-flex>
+          <Alert @dismissed="onDismissed" :text="errors"></Alert>
+        </v-flex>
+      </v-layout>
     <v-row v-if="!loading">
+      
       <CustomerList
         v-for="(item, index) in customers"
         :key="index"
@@ -51,6 +57,7 @@ import { CustomerService } from "@/services/customer-service.js";
 import { checkError } from "@/config/errors.js";
 import AddCustomer from "@/components/admin/customer/AddCustomer";
 import Pagination from "@/components/shared/Pagination";
+import Alert from "@/components/shared/Alert";
 
 export default {
   name: "Customer",
@@ -59,7 +66,8 @@ export default {
     CustomerList,
     AddCustomer,
     Snackbars,
-    Pagination
+    Pagination,
+    Alert
   },
   data: () => ({
     title: "Customers",
@@ -70,7 +78,8 @@ export default {
     succesMsg: "",
     snackbar: false,
     page: 1,
-    total: 0
+    total: 0,
+    errors: []
   }),
 
   mounted() {
@@ -141,7 +150,10 @@ export default {
         this.page++;
         this.getCustomerList();
       }
-    }
+    },
+     onDismissed() {
+      this.errors = null;
+    },
   }
 };
 </script>

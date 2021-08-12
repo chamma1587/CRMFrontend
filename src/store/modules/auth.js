@@ -92,14 +92,14 @@ export default {
 
     destroyToken(context) {
       context.commit('setClearError');
+      localStorage.removeItem('access_token')
+      context.commit('destroyToken');
+      context.commit('setToken', null);
+      context.commit('setClearProfile', null);
+      context.commit('setLoader', false);
       return new Promise((resolve) => {
         AuthService.logout()
-          .then(response => {
-            localStorage.removeItem('access_token')
-            context.commit('destroyToken');
-            context.commit('setToken', null);
-            context.commit('setClearProfile', null);
-            context.commit('setLoader', false);
+          .then(response => {           
             resolve(response)
           })
           .catch(error => {
